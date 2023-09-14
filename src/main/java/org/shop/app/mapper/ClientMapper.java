@@ -15,4 +15,6 @@ public interface ClientMapper {
 
     ViewClientDto toViewClientDto(Client client);
 
+    Client toClientEntity(ViewClientDto viewClientDto);
+
 }
