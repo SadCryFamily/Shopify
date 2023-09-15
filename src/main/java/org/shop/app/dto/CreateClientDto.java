@@ -11,4 +11,5 @@ public class CreateClientDto {
 
     private String clientName;
 
+    private String clientPassword;
 }
