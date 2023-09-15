@@ -21,6 +21,8 @@
 		<liquibase.version>4.18.0</liquibase.version>
 		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.20</org.projectlombok.version>
+		<starter-security.version>2.7.5</starter-security.version>
+		<json-token.version>0.9.1</json-token.version>
 	</properties>
 
 	<dependencies>
@@ -49,6 +51,18 @@
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 			<version>${liquibase.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>${starter-security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${json-token.version}</version>
 		</dependency>
 
 		<dependency>

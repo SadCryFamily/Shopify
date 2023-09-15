@@ -3,6 +3,7 @@ package org.shop.app.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -21,7 +22,16 @@ public class Client {
     @Column(name = "client_name")
     private String clientName;
 
+    @Column(name = "client_password")
+    private String clientPassword;
+
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "client_roles",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
 }

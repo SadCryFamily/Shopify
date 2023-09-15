@@ -21,4 +21,48 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2" author="Semen Gulenko">
+        <addColumn tableName="clients">
+            <column name="client_password" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="3" author="Semen Gulenko">
+        <createTable tableName="roles">
+            <column name="role_id" type="bigserial">
+                <constraints primaryKeyName="pk_role_id" primaryKey="true"/>
+            </column>
+
+            <column name="role_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="Semen Gulenko">
+        <createTable tableName="client_roles">
+            <column name="client_id" type="bigint">
+                <constraints foreignKeyName="fk_client_id" references="clients(client_id)"/>
+            </column>
+
+            <column name="role_id" type="bigint">
+                <constraints foreignKeyName="fk_role_id" references="roles(role_id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="Semen Gulenko">
+        <insert tableName="roles">
+            <column name="role_id" value="1"/>
+            <column name="role_name" value="ROLE_USER"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="role_id" value="2"/>
+            <column name="role_name" value="ROLE_MODERATOR"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

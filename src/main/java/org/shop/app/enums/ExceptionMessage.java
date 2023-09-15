@@ -9,6 +9,8 @@ public enum ExceptionMessage {
 
     CLIENT_NOT_FOUND("Unable to retrieve client by ID provided"),
 
+    ACCOUNT_NOT_AUTHORIZED("Unfortunately, you cannot reach the resources while unauthorized."),
+
     CLIENT_ALREADY_DELETED("Client already deleted by ID provided");
 
     private String exceptionMessage;
