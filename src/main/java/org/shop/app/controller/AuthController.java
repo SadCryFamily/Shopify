@@ -5,11 +5,11 @@ import org.shop.app.dto.LoginClientDto;
 import org.shop.app.pojo.JwtLoginResponse;
 import org.shop.app.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 public class AuthController {
@@ -18,12 +18,12 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signup")
-    public String createClientAccount(@RequestBody CreateClientDto createClientDto) {
+    public String createClientAccount(@RequestBody @Valid CreateClientDto createClientDto) {
         return authService.createClientAccount(createClientDto);
     }
 
     @PostMapping("/signin")
-    public JwtLoginResponse loginClientAccount(@RequestBody LoginClientDto loginClientDto) {
+    public JwtLoginResponse loginClientAccount(@RequestBody @Valid LoginClientDto loginClientDto) {
         return authService.loginClientAccount(loginClientDto);
     }
 

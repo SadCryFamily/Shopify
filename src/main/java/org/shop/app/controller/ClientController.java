@@ -1,36 +1,23 @@
 package org.shop.app.controller;
 
-import org.shop.app.dto.CreateClientDto;
-import org.shop.app.dto.ViewClientDto;
+import lombok.RequiredArgsConstructor;
 import org.shop.app.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @RestController
+@RequiredArgsConstructor
 public class ClientController {
 
-    private ClientService clientService;
+    private final ClientService clientService;
 
-    @Autowired
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
-
-    @PostMapping("/client")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public CreateClientDto createNewClient(@RequestBody CreateClientDto createClientDto) {
-        return clientService.createNewClient(createClientDto);
-    }
-
-    @GetMapping("/client")
-    public ViewClientDto viewClient(@RequestParam("id") Long clientId) {
-        return clientService.viewClientById(clientId);
-    }
-
-    @DeleteMapping("/client")
-    public boolean deleteClientById(@RequestParam("id") Long clientId) {
-        return clientService.deleteClientById(clientId);
+    @GetMapping("/hi")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public String viewClientAccount(Principal principal) {
+        return "Hello, " + principal.getName();
     }
 
 }

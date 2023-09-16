@@ -23,6 +23,7 @@
 		<org.projectlombok.version>1.18.20</org.projectlombok.version>
 		<starter-security.version>2.7.5</starter-security.version>
 		<json-token.version>0.9.1</json-token.version>
+		<validation-starter.version>3.0.1</validation-starter.version>
 	</properties>
 
 	<dependencies>
@@ -75,6 +76,12 @@
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+			<version>${validation-starter.version}</version>
 		</dependency>
 
 		<dependency>
