@@ -3,6 +3,8 @@ package org.shop.app.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,5 +35,8 @@ public class Client {
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
 
 }
