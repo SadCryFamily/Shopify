@@ -1,11 +1,11 @@
 package org.shop.app.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@NamedEntityGraph(name = "client.roles", attributeNodes = @NamedAttributeNode("roles"))
 @Table(name = "clients",
         uniqueConstraints = {@UniqueConstraint(name = "uk_client_name", columnNames = "client_name")})
 public class Client {
@@ -31,14 +32,15 @@ public class Client {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "client_roles",
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Fetch(FetchMode.SUBSELECT)
     private Set<Role> roles;
 
     @Setter(AccessLevel.PRIVATE)
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 
     public void addOrder(Order order) {

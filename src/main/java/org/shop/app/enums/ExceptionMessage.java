@@ -23,6 +23,8 @@ public enum ExceptionMessage {
 
     ORDER_CLIENT_ALREADY_PRESENT("Order already placed for you"),
 
+    AUTH_ALREADY_EXISTS("Unfortunately, you cannot reach a new role because it already exists"),
+
     CLIENT_ALREADY_DELETED("Client already deleted by ID provided");
 
     private String exceptionMessage;

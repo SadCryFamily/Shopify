@@ -7,7 +7,7 @@
 
     <changeSet id="1" author="Semen Gulenko">
         <createTable tableName="clients">
-            <column name="client_id" type="bigserial">
+            <column name="client_id" type="bigserial" startWith="2">
                 <constraints nullable="false" primaryKeyName="pk_client_id" primaryKey="true"/>
             </column>
 
