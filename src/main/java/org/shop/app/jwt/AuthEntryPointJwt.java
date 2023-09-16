@@ -2,6 +2,7 @@ package org.shop.app.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.shop.app.enums.ExceptionMessage;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -14,7 +15,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component("authEntryPointJwt")
+@Component
+@Primary
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
     @Override
