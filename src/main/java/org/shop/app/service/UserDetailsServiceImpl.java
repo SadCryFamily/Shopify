@@ -1,6 +1,8 @@
 package org.shop.app.service;
 
 import org.shop.app.entity.Client;
+import org.shop.app.enums.ExceptionMessage;
+import org.shop.app.exception.ClientAlreadyDeletedException;
 import org.shop.app.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;

@@ -1,6 +1,7 @@
 package org.shop.app.service;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.shop.app.entity.Client;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @EqualsAndHashCode
+@Getter
 public class UserDetailsImpl implements UserDetails {
 
     private String clientName;

@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
 
         String username = createClientDto.getClientName();
 
-        if (clientRepository.existsByClientNameAndIsDeletedIsFalse(username)) {
+        if (clientRepository.existsByClientName(username)) {
             throw new ClientAlreadyCreatedException(ExceptionMessage.CLIENT_ALREADY_CREATED.getExceptionMessage());
         }
 
