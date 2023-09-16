@@ -13,21 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
-public class ClientAdvice {
+public class ModerationAdvice {
 
-    @ExceptionHandler({
-            ClientAlreadyCreatedException.class,
-            ClientUnableToFindException.class,
-            ClientAlreadyDeletedException.class,
-            NotMyOrderToPayException.class
-    })
-    public ResponseEntity<Map<String, List<String>>> handleClientExceptions(RuntimeException e) {
+    @ExceptionHandler({AuthorityAlreadyExistsException.class})
+    public ResponseEntity<Map<String, List<String>>> handleModerationExceptions(RuntimeException e) {
         List<String> errorsList = Collections.singletonList(e.getMessage());
 
         return new ResponseEntity<>(ErrorMapperUtil.getErrorsMap(errorsList),
                 new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
-
-
 
 }

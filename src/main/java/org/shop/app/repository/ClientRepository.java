@@ -1,20 +1,21 @@
 package org.shop.app.repository;
 
 import org.shop.app.entity.Client;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    Optional<Client> findClientByClientIdAndIsDeletedIsFalse(Long clientId);
-
     Client findByClientName(String clientName);
 
     boolean existsByClientName(String clientName);
 
-    boolean existsByClientIdAndIsDeletedIsFalse(Long clientId);
+    @EntityGraph("client.roles")
+    List<Client> findAll();
 
 }
