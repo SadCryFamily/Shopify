@@ -31,6 +31,9 @@ public class Order {
     @Column(name = "is_payed")
     private boolean isPayed;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;

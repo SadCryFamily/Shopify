@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Integer> {
+public interface OrderRepository extends JpaRepository<Order, Integer>, OrderRepositoryCriteria {
 
     Optional<Order> findByOrderName(String orderName);
 
-    List<Order> findAllByIsPayedIsFalse();
+    List<Order> findAllByIsDeletedIsFalse();
 
     boolean existsByOrderName(String orderName);
 

@@ -38,13 +38,15 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
 
         log.info("CREATE ORDER by NAME: {} with QUANTITY: {}", order.getOrderName(), order.getOrderUnitQuantity());
-        return "Order successfully created";
+        return String.format("Order [%s] successfully created", order.getOrderName());
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ViewOrderDto> viewAllAvailableOrders() {
-        return orderRepository.findAllByIsPayedIsFalse().stream()
+
+        log.info("RETRIEVE ALL AVAILABLE ORDERS");
+        return orderRepository.findAllByIsDeletedIsFalse().stream()
                 .map(orderMapper::toViewOrderDto)
                 .collect(Collectors.toList());
     }

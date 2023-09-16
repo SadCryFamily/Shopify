@@ -24,6 +24,7 @@
 		<starter-security.version>2.7.5</starter-security.version>
 		<json-token.version>0.9.1</json-token.version>
 		<validation-starter.version>3.0.1</validation-starter.version>
+		<scheduler.version>3.1.2</scheduler.version>
 	</properties>
 
 	<dependencies>
@@ -64,6 +65,12 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>${json-token.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>${scheduler.version}</version>
 		</dependency>
 
 		<dependency>
