@@ -1,9 +1,6 @@
 package org.shop.app.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,7 +10,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "orders")
+@Table(name = "orders",
+        uniqueConstraints = @UniqueConstraint(name = "uk_order_name", columnNames = "order_name"))
 public class Order {
 
     @Id
@@ -33,7 +31,7 @@ public class Order {
     @Column(name = "is_payed")
     private boolean isPayed;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
 

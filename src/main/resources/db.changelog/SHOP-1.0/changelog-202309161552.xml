@@ -12,7 +12,7 @@
             </column>
 
             <column name="order_name" type="text">
-                <constraints nullable="false"/>
+                <constraints nullable="false" uniqueConstraintName="uk_order_name" unique="true"/>
             </column>
 
             <column name="order_unit_price" type="java.math.BigDecimal">

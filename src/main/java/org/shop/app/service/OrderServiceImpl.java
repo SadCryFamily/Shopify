@@ -1,9 +1,12 @@
 package org.shop.app.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.shop.app.dto.CreateOrderDto;
 import org.shop.app.dto.ViewOrderDto;
 import org.shop.app.entity.Order;
+import org.shop.app.enums.ExceptionMessage;
+import org.shop.app.exception.OrderAlreadyCreatedException;
 import org.shop.app.mapper.OrderMapper;
 import org.shop.app.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
@@ -23,15 +27,24 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public String createAnOrder(CreateOrderDto createOrderDto) {
+
+        if (orderRepository.existsByOrderName(createOrderDto.getOrderName())) {
+            log.error("ERROR CREATE ORDER by NAME: {}. Reason: {}", createOrderDto.getOrderName(), OrderAlreadyCreatedException.class);
+            throw new OrderAlreadyCreatedException(ExceptionMessage.ORDER_ALREADY_CREATED.getExceptionMessage());
+        }
+
         Order order = orderMapper.toOrderEntity(createOrderDto);
+
         orderRepository.save(order);
+
+        log.info("CREATE ORDER by NAME: {} with QUANTITY: {}", order.getOrderName(), order.getOrderUnitQuantity());
         return "Order successfully created";
     }
 
     @Override
     @Transactional
     public List<ViewOrderDto> viewAllAvailableOrders() {
-        return orderRepository.findAll().stream()
+        return orderRepository.findAllByIsPayedIsFalse().stream()
                 .map(orderMapper::toViewOrderDto)
                 .collect(Collectors.toList());
     }

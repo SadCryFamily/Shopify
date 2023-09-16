@@ -13,21 +13,19 @@ import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
-public class ClientAdvice {
+public class OrderAdvice {
 
     @ExceptionHandler({
-            ClientAlreadyCreatedException.class,
-            ClientUnableToFindException.class,
-            ClientAlreadyDeletedException.class,
-            NotMyOrderToPayException.class
+            OrderNullException.class,
+            NotEnoughStockException.class,
+            OrderAlreadyCreatedException.class,
+            OrderClientAlreadyPresentException.class
     })
-    public ResponseEntity<Map<String, List<String>>> handleClientExceptions(RuntimeException e) {
+    public ResponseEntity<Map<String, List<String>>> handleOrderExceptions(RuntimeException e) {
         List<String> errorsList = Collections.singletonList(e.getMessage());
 
         return new ResponseEntity<>(ErrorMapperUtil.getErrorsMap(errorsList),
                 new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
-
-
 
 }

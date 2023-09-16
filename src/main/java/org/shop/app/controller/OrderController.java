@@ -18,7 +18,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/add-order")
-    @PreAuthorize("hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('USER')")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String createAnOrder(@RequestBody @Valid CreateOrderDto createOrderDto) {
         return orderService.createAnOrder(createOrderDto);

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,7 +37,13 @@ public class Client {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @Setter(AccessLevel.PRIVATE)
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<Order> orders = new ArrayList<>();
+    private Set<Order> orders = new HashSet<>();
+
+    public void addOrder(Order order) {
+        order.setClient(this);
+        orders.add(order);
+    }
 
 }
