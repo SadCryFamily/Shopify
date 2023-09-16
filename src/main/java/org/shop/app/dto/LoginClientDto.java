@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Builder
-public class CreateClientDto {
+public class LoginClientDto {
 
     @NotNull(message = "Username can't be null")
     @Size(min = 5, message = "Username must be longer than 5")

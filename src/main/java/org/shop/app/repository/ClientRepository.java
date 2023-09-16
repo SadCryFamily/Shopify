@@ -11,7 +11,9 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Optional<Client> findClientByClientIdAndIsDeletedIsFalse(Long clientId);
 
-    boolean existsByClientNameAndIsDeletedIsFalse(String clientName);
+    Client findByClientName(String clientName);
+
+    boolean existsByClientName(String clientName);
 
     boolean existsByClientIdAndIsDeletedIsFalse(Long clientId);
 
