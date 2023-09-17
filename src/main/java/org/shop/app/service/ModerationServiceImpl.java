@@ -93,7 +93,7 @@ public class ModerationServiceImpl implements ModerationService {
         client.setRoles(defaultRoleSet);
 
         log.info("REMOVED ROLE: {} to Client By USERNAME: {}", ClientRoles.ROLE_MODERATOR, clientName);
-        return String.format("Client [%s] successfully granted with Role [%s]",
+        return String.format("Client [%s] successfully waste the Role [%s]",
                 clientName, ClientRoles.ROLE_MODERATOR.extractRoleProperty());
     }
 }
