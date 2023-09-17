@@ -18,4 +18,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @EntityGraph("client.roles")
     List<Client> findAll();
 
+    void deleteClientByClientName(String clientName);
+
 }

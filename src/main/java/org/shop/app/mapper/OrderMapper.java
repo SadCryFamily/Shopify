@@ -19,6 +19,6 @@ public interface OrderMapper {
 
     ViewOrderDto toViewOrderDto(Order order);
 
-    Order toCreateBuyOrderDto(CreateBuyOrderDto createBuyOrderDto);
+    Order toOrderEntity(CreateBuyOrderDto createBuyOrderDto);
 
 }

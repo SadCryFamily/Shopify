@@ -24,7 +24,7 @@ public class MockClientsSecurityContextFactory implements WithSecurityContextFac
                 mockClient.clientName(),
                 mockClient.clientPassword(),
                 Boolean.FALSE,
-                Set.of(new SimpleGrantedAuthority(ClientRoles.ROLE_USER.extractRoleProperty()))
+                Set.of(new SimpleGrantedAuthority(mockClient.addRole().extractRoleProperty()))
         );
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(

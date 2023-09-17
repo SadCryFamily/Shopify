@@ -9,15 +9,17 @@ public enum TestVariables {
 
     BASIC_CLIENT_NAME("mock"),
 
+    NORMAL_CLIENT_NAME("mockClient"),
+
     BASIC_CLIENT_PS("mock"),
 
-    BASIC_ORDER_NAME("Iphone 11"),
+    NORMAL_CLIENT_PS("mockPassword"),
+
+    BASIC_ORDER("Iphone 11"),
 
     BASIC_ORDER_UNIT("20"),
 
-    BASIC_ORDER_PRICE("500");
+    BASIC_ORDER_PRICE("560");
 
     private String testProperty;
-
-
 }

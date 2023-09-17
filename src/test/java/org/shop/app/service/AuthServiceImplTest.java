@@ -3,7 +3,7 @@ package org.shop.app.service;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.shop.app.TestVariables;
+import org.shop.app.enums.TestVariables;
 import org.shop.app.annotation.MockClient;
 import org.shop.app.dto.CreateClientDto;
 import org.shop.app.dto.LoginClientDto;

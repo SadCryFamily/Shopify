@@ -176,6 +176,7 @@
 				<version>${maven-surefire.version}</version>
 				<configuration>
 					<includes>
+						<include>org.shop.app.suite.IntegrationSuite</include>
 						<include>org.shop.app.suite.UnitSuite</include>
 					</includes>
 				</configuration>

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
-import static org.shop.app.TestVariables.BASIC_ORDER;
+import static org.shop.app.enums.TestVariables.BASIC_ORDER;
 import static org.shop.app.enums.TestVariables.*;
 
 @SpringBootTest

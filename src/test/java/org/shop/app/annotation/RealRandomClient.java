@@ -1,7 +1,7 @@
 package org.shop.app.annotation;
 
 import org.shop.app.entity.ClientRoles;
-import org.shop.app.factory.MockClientsSecurityContextFactory;
+import org.shop.app.factory.RealClientsSecurityContextFactory;
 import org.springframework.security.test.context.support.WithSecurityContext;
 
 import java.lang.annotation.ElementType;
@@ -11,13 +11,13 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@WithSecurityContext(factory = MockClientsSecurityContextFactory.class)
-public @interface MockClient {
+@WithSecurityContext(factory = RealClientsSecurityContextFactory.class)
+public @interface RealRandomClient {
 
-    String clientName() default "mockClient";
+    String clientName() default "basicClient";
 
-    String clientPassword() default "mockPassword";
+    String clientPassword() default "basicPassword";
 
-    ClientRoles addRole() default ClientRoles.ROLE_USER;
+    ClientRoles role() default ClientRoles.ROLE_USER;
 
 }
