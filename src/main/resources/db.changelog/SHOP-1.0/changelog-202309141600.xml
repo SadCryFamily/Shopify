@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Semen Gulenko">
+        <createTable tableName="clients">
+            <column name="client_id" type="serial" startWith="2">
+                <constraints nullable="false" primaryKeyName="pk_client_id" primaryKey="true"/>
+            </column>
+
+            <column name="client_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_deleted" type="bool" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Semen Gulenko">
+        <addColumn tableName="clients">
+            <column name="client_password" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="3" author="Semen Gulenko">
+        <createTable tableName="roles">
+            <column name="role_id" type="serial">
+                <constraints primaryKeyName="pk_role_id" primaryKey="true"/>
+            </column>
+
+            <column name="role_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="Semen Gulenko">
+        <createTable tableName="client_roles">
+            <column name="client_id" type="int">
+                <constraints foreignKeyName="fk_client_id" references="clients(client_id)"/>
+            </column>
+
+            <column name="role_id" type="int">
+                <constraints foreignKeyName="fk_role_id" references="roles(role_id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="Semen Gulenko">
+        <insert tableName="roles">
+            <column name="role_id" value="1"/>
+            <column name="role_name" value="ROLE_USER"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="role_id" value="2"/>
+            <column name="role_name" value="ROLE_MODERATOR"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="6" author="Semen Gulenko">
+        <addUniqueConstraint tableName="clients" columnNames="client_name"/>
+    </changeSet>
+
+</databaseChangeLog>

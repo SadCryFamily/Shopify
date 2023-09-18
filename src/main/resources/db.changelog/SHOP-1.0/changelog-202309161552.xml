@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="7" author="Semen Gulenko">
+        <createTable tableName="orders">
+            <column name="order_id" type="serial">
+                <constraints primaryKeyName="pk_order_id" primaryKey="true"/>
+            </column>
+
+            <column name="order_name" type="text">
+                <constraints nullable="false" uniqueConstraintName="uk_order_name" unique="true"/>
+            </column>
+
+            <column name="order_unit_price" type="java.math.BigDecimal">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="order_unit_quantity" type="integer">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_payed" type="bool" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="client_id" type="int">
+                <constraints foreignKeyName="fk_client_id" references="clients(client_id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8" author="Semen Gulenko">
+        <addColumn tableName="orders">
+            <column name="is_deleted" type="bool" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="9" author="Semen Gulenko" labels="Create initial Moderator">
+        <insert tableName="clients">
+            <column name="client_id" value="1"/>
+            <column name="client_name" value="main_moderator"/>
+            <column name="client_password" value="$2a$12$s3oN1dLvL44NlDM0vptdUusCqfQ2GCW3aMfYcgd10j1w1MsxpTm0i"/>
+        </insert>
+
+        <insert tableName="client_roles">
+            <column name="client_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+        <insert tableName="client_roles">
+            <column name="client_id" value="1"/>
+            <column name="role_id" value="2"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
