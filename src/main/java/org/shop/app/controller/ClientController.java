@@ -22,7 +22,7 @@ public class ClientController {
 
     @PostMapping("/place-order")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') OR hasRole('MODERATOR')")
     public String placeAnOrder(Principal principal, @RequestBody @Valid CreateBuyOrderDto createBuyOrderDto) {
         return clientService.placeAnOrder(principal, createBuyOrderDto);
     }

@@ -25,6 +25,9 @@
 		<json-token.version>0.9.1</json-token.version>
 		<validation-starter.version>3.0.1</validation-starter.version>
 		<scheduler.version>3.1.2</scheduler.version>
+		<spring-security-test.version>5.3.13.RELEASE</spring-security-test.version>
+		<junit-suite.version>1.8.1</junit-suite.version>
+		<maven-surefire.version>2.22.2</maven-surefire.version>
 	</properties>
 
 	<dependencies>
@@ -69,6 +72,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<version>${spring-security-test.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>${json-token.version}</version>
@@ -102,6 +112,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite-engine</artifactId>
+			<version>${junit-suite.version}</version>
 		</dependency>
 
 		<dependency>
@@ -151,6 +167,18 @@
 							<version>${org.mapstruct.version}</version>
 						</path>
 					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire.version}</version>
+				<configuration>
+					<includes>
+						<include>org.shop.app.suite.IntegrationSuite</include>
+						<include>org.shop.app.suite.UnitSuite</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>
