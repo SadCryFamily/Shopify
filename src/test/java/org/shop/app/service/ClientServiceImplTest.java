@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.shop.app.enums.TestVariables.*;
 
@@ -57,8 +57,8 @@ class ClientServiceImplTest {
                 .build();
 
         CreateClientDto mockCreateClientDto = CreateClientDto.builder()
-                .clientName(BASIC_CLIENT_NAME.getTestProperty())
-                .clientPassword(BASIC_CLIENT_PS.getTestProperty())
+                .clientName(NORMAL_CLIENT_NAME.getTestProperty())
+                .clientPassword(NORMAL_CLIENT_PS.getTestProperty())
                 .build();
 
         when(clientRepository.existsByClientName(mockCreateClientDto.getClientName())).thenReturn(true);
@@ -91,8 +91,8 @@ class ClientServiceImplTest {
         Authentication mockAuthentication = SecurityContextHolder.getContext().getAuthentication();
 
         CreateClientDto mockCreateClientDto = CreateClientDto.builder()
-                .clientName(BASIC_CLIENT_NAME.getTestProperty())
-                .clientPassword(BASIC_CLIENT_PS.getTestProperty())
+                .clientName(NORMAL_CLIENT_NAME.getTestProperty())
+                .clientPassword(NORMAL_CLIENT_PS.getTestProperty())
                 .build();
 
         Mockito.when(clientRepository.existsByClientName(mockCreateClientDto.getClientName()))
