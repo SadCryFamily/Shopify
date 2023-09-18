@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 
     Client findByClientName(String clientName);
 

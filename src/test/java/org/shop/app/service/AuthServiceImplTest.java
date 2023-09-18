@@ -9,6 +9,7 @@ import org.shop.app.dto.CreateClientDto;
 import org.shop.app.dto.LoginClientDto;
 import org.shop.app.entity.ClientRoles;
 import org.shop.app.entity.Role;
+import org.shop.app.exception.ClientAlreadyCreatedException;
 import org.shop.app.jwt.JwtUtils;
 import org.shop.app.mapper.ClientMapper;
 import org.shop.app.pojo.JwtLoginResponse;
@@ -20,12 +21,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.shop.app.enums.TestVariables.BASIC_CLIENT_NAME;
+import static org.shop.app.enums.TestVariables.BASIC_CLIENT_PS;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,9 +48,6 @@ class AuthServiceImplTest {
     @MockBean
     private AuthenticationManager authenticationManager;
 
-    @SpyBean
-    private ClientMapper clientMapper;
-
     @MockBean
     private JwtUtils jwtUtils;
 
@@ -53,7 +55,7 @@ class AuthServiceImplTest {
     void createClientAccount() {
 
         CreateClientDto mockCreateClient = CreateClientDto.builder()
-                .clientName(TestVariables.BASIC_CLIENT_NAME.getTestProperty())
+                .clientName(BASIC_CLIENT_NAME.getTestProperty())
                 .clientPassword(TestVariables.BASIC_CLIENT_PS.getTestProperty())
                 .build();
 
@@ -101,6 +103,26 @@ class AuthServiceImplTest {
 
         assertEquals(expectedLoginResponse.getJwtToken(), actualLoginResponse.getJwtToken());
         assertEquals(expectedLoginResponse.getUsername(), actualLoginResponse.getUsername());
+
+    }
+
+    @Test
+    public void createExistedClientAccount() {
+
+        CreateClientDto mockCreateClientDto = CreateClientDto.builder()
+                .clientName(BASIC_CLIENT_NAME.getTestProperty())
+                .clientPassword(BASIC_CLIENT_PS.getTestProperty()).build();
+
+        Mockito.when(clientRepository.existsByClientName(mockCreateClientDto.getClientName()))
+                .thenReturn(true);
+
+        Role mockRole = Role.builder()
+                .roleName(ClientRoles.ROLE_USER)
+                .build();
+
+        Mockito.when(roleRepository.findRoleByRoleName(ClientRoles.ROLE_USER)).thenReturn(mockRole);
+
+        assertThrows(ClientAlreadyCreatedException.class, () -> authService.createClientAccount(mockCreateClientDto));
 
     }
 }

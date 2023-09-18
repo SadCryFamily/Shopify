@@ -1,6 +1,7 @@
 package org.shop.app.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.shop.app.dto.CreateClientDto;
 import org.shop.app.dto.LoginClientDto;
 import org.shop.app.entity.Client;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
@@ -47,6 +49,7 @@ public class AuthServiceImpl implements AuthService {
         String username = createClientDto.getClientName();
 
         if (clientRepository.existsByClientName(username)) {
+            log.error("ERROR CREATE Client By USERNAME: {}", username);
             throw new ClientAlreadyCreatedException(ExceptionMessage.CLIENT_ALREADY_CREATED.getExceptionMessage());
         }
 
@@ -60,6 +63,7 @@ public class AuthServiceImpl implements AuthService {
 
         clientRepository.save(client);
 
+        log.info("CREATE Client By USERNAME: {}", client.getClientName());
         return "Customer successfully created!";
     }
 
@@ -78,6 +82,7 @@ public class AuthServiceImpl implements AuthService {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
+        log.info("LOGIN Client By USERNAME: {}", userDetails.getClientName());
         return new JwtLoginResponse(jwt, userDetails.getUsername());
     }
 }

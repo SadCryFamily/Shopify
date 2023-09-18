@@ -7,7 +7,7 @@
 
     <changeSet id="1" author="Semen Gulenko">
         <createTable tableName="clients">
-            <column name="client_id" type="bigserial" startWith="2">
+            <column name="client_id" type="serial" startWith="2">
                 <constraints nullable="false" primaryKeyName="pk_client_id" primaryKey="true"/>
             </column>
 
@@ -31,7 +31,7 @@
 
     <changeSet id="3" author="Semen Gulenko">
         <createTable tableName="roles">
-            <column name="role_id" type="bigserial">
+            <column name="role_id" type="serial">
                 <constraints primaryKeyName="pk_role_id" primaryKey="true"/>
             </column>
 
@@ -43,11 +43,11 @@
 
     <changeSet id="4" author="Semen Gulenko">
         <createTable tableName="client_roles">
-            <column name="client_id" type="bigint">
+            <column name="client_id" type="int">
                 <constraints foreignKeyName="fk_client_id" references="clients(client_id)"/>
             </column>
 
-            <column name="role_id" type="bigint">
+            <column name="role_id" type="int">
                 <constraints foreignKeyName="fk_role_id" references="roles(role_id)"/>
             </column>
         </createTable>
