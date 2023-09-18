@@ -56,7 +56,7 @@ class ModerationServiceImplTest {
                 .build();
 
         Client mockClient = clientMapper.toClientEntity(mockCreateClientDto);
-        Role mockRole = Role.builder().roleId(1L).roleName(ClientRoles.ROLE_USER).build();
+        Role mockRole = Role.builder().roleId(1).roleName(ClientRoles.ROLE_USER).build();
         mockClient.setRoles(Set.of(mockRole));
 
         List<Client> mockClientList = List.of(mockClient);
@@ -97,7 +97,7 @@ class ModerationServiceImplTest {
         Client mockClient = clientMapper.toClientEntity(mockCreateClientDto);
 
         Role mockRoleUser = Role.builder()
-                .roleId(2L)
+                .roleId(2)
                 .roleName(ClientRoles.ROLE_USER).build();
 
         Set<Role> mockClientRoles = new HashSet<>();
@@ -109,7 +109,7 @@ class ModerationServiceImplTest {
                 .thenReturn(mockClient);
 
         Role mockRoleModerator = Role.builder()
-                .roleId(2L)
+                .roleId(2)
                 .roleName(ClientRoles.ROLE_MODERATOR).build();
 
         when(roleRepository.findRoleByRoleName(ClientRoles.ROLE_MODERATOR)).thenReturn(mockRoleModerator);
@@ -139,11 +139,11 @@ class ModerationServiceImplTest {
         Client mockClient = clientMapper.toClientEntity(mockCreateClientDto);
 
         Role mockRoleUser = Role.builder()
-                .roleId(1L)
+                .roleId(1)
                 .roleName(ClientRoles.ROLE_USER).build();
 
         Role mockRoleModerator = Role.builder()
-                .roleId(2L)
+                .roleId(2)
                 .roleName(ClientRoles.ROLE_MODERATOR).build();
 
         Set<Role> mockClientRoles = new HashSet<>();
@@ -209,11 +209,11 @@ class ModerationServiceImplTest {
         Client mockClient = clientMapper.toClientEntity(mockCreateClientDto);
 
         Role mockRoleUser = Role.builder()
-                .roleId(1L)
+                .roleId(1)
                 .roleName(ClientRoles.ROLE_USER).build();
 
         Role mockRoleModerator = Role.builder()
-                .roleId(2L)
+                .roleId(2)
                 .roleName(ClientRoles.ROLE_MODERATOR).build();
 
         when(roleRepository.findRoleByRoleName(ClientRoles.ROLE_MODERATOR)).thenReturn(mockRoleModerator);

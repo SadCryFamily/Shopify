@@ -27,7 +27,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="client_id" type="bigint">
+            <column name="client_id" type="int">
                 <constraints foreignKeyName="fk_client_id" references="clients(client_id)"/>
             </column>
         </createTable>

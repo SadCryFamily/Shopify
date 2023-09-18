@@ -52,7 +52,7 @@ public class RealClientsSecurityContextFactory implements WithSecurityContextFac
         Client client = clientMapper.toClientEntity(createClientDto);
 
         Role defaultRole = Role.builder()
-                .roleId(1L)
+                .roleId(1)
                 .roleName(ClientRoles.ROLE_USER).build();
 
         Set<Role> clientRoles = new HashSet<>();
@@ -60,7 +60,7 @@ public class RealClientsSecurityContextFactory implements WithSecurityContextFac
 
         if (realRandomClient.role() != ClientRoles.ROLE_USER) {
             Role moderatorRole = Role.builder()
-                    .roleId(2L)
+                    .roleId(2)
                     .roleName(ClientRoles.ROLE_USER).build();
 
             clientRoles.add(moderatorRole);
