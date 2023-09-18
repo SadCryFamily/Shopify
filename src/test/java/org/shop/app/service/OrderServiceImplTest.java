@@ -6,6 +6,7 @@ import org.mockito.Mockito;
 import org.shop.app.dto.CreateOrderDto;
 import org.shop.app.dto.ViewOrderDto;
 import org.shop.app.entity.Order;
+import org.shop.app.exception.OrderAlreadyCreatedException;
 import org.shop.app.mapper.OrderMapper;
 import org.shop.app.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.shop.app.enums.TestVariables.BASIC_ORDER;
 import static org.shop.app.enums.TestVariables.*;
 
@@ -90,6 +93,42 @@ class OrderServiceImplTest {
                 expectedViewOrderDtoList.get(0).getOrderUnitQuantity(),
                 actualViewOrderDtoList.get(0).getOrderUnitQuantity()
         );
+
+    }
+
+    @Test
+    public void createAnExistedOrder() {
+
+        CreateOrderDto mockCreateOrderDto = CreateOrderDto.builder()
+                .orderName(BASIC_ORDER.getTestProperty())
+                .orderUnitQuantity(Integer.valueOf(BASIC_ORDER_UNIT.getTestProperty()))
+                .orderUnitPrice(new BigDecimal(BASIC_ORDER_PRICE.getTestProperty()))
+                .build();
+
+        Mockito.when(orderRepository.existsByOrderName(mockCreateOrderDto.getOrderName()))
+                .thenReturn(true);
+
+        assertThrows(
+                OrderAlreadyCreatedException.class,
+                () -> orderService.createAnOrder(mockCreateOrderDto)
+        );
+
+    }
+
+    @Test
+    public void viewEmptyAllAvailableOrders() {
+
+        List<ViewOrderDto> expectedList = Collections.emptyList();
+
+        List<Order> listMockOrders = expectedList.stream()
+                .map(view -> orderMapper.toOrderEntity(view))
+                .collect(Collectors.toList());
+
+        Mockito.when(orderRepository.findAllByIsDeletedIsFalse()).thenReturn(listMockOrders);
+
+        List<ViewOrderDto> actualList = orderService.viewAllAvailableOrders();
+
+        assertEquals(expectedList.size(), actualList.size());
 
     }
 }
